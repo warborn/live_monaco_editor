@@ -1,8 +1,15 @@
 # Changelog
 
+## 0.3.2 (2025-02-27)
+
+### Bug fixes
+
+  * Correct colors of moonlight-ii theme
+
 ## 0.3.1 (2025-02-27)
 
 ### Enhancements
+
   * New moonlight-ii theme
 
 ## 0.3.0 (2025-02-27)
