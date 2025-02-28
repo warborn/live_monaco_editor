@@ -1104,6 +1104,14 @@ var CodeEditor = class {
 var code_editor_default = CodeEditor;
 
 // js/live_monaco_editor/hooks/code_editor.js
+function debounce(func, wait) {
+  let timeout;
+  return function(...args) {
+    const context = this;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(context, args), wait);
+  };
+}
 var CodeEditorHook = {
   mounted() {
     const opts = JSON.parse(this.el.dataset.opts);
@@ -1115,7 +1123,7 @@ var CodeEditorHook = {
     );
     this.codeEditor.onMount((monaco) => {
       if (this.el.dataset.changeEvent && this.el.dataset.changeEvent !== "") {
-        this.codeEditor.standalone_code_editor.onDidChangeModelContent(() => {
+        const handleContentChange = () => {
           if (this.el.dataset.target && this.el.dataset.target !== "") {
             this.pushEventTo(
               this.el.dataset.target,
@@ -1129,7 +1137,12 @@ var CodeEditorHook = {
               value: this.codeEditor.standalone_code_editor.getValue()
             });
           }
-        });
+        };
+        const debounceMs = parseInt(this.el.dataset.debounce);
+        const eventHandler = !isNaN(debounceMs) && debounceMs > 0 ? debounce(handleContentChange, debounceMs) : handleContentChange;
+        this.codeEditor.standalone_code_editor.onDidChangeModelContent(
+          eventHandler
+        );
       }
       this.handleEvent(
         "lme:change_language:" + this.el.dataset.path,

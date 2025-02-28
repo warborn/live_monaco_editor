@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.3 (2025-02-27)
+
+### Enhancements
+
+  * Add support to debounce editor's change event
+
 ## 0.3.2 (2025-02-27)
 
 ### Bug fixes

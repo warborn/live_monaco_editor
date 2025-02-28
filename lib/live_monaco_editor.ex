@@ -82,6 +82,11 @@ defmodule LiveMonacoEditor do
     doc:
       "target for editor events in order to use with LiveComponent, see https://github.com/BeaconCMS/live_monaco_editor#inside-forms for more info"
 
+  attr :debounce, :string,
+    default: "",
+    doc:
+      "debounce time in milliseconds for editor change events, see https://github.com/BeaconCMS/live_monaco_editor#debouncing-editor-changes for more info"
+
   attr :opts, :map,
     default: @default_opts,
     doc: """
@@ -119,6 +124,7 @@ defmodule LiveMonacoEditor do
         data-value={@value}
         data-change-event={@change}
         data-target={@target}
+        data-debounce={@debounce}
         data-opts={@opts}
         {@rest}
       >

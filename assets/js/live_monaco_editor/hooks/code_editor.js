@@ -1,5 +1,20 @@
 import CodeEditor from "../editor/code_editor"
 
+/**
+ * Debounce function that limits how often a function can be called
+ * @param {Function} func - The function to debounce
+ * @param {number} wait - The number of milliseconds to delay
+ * @return {Function} - The debounced function
+ */
+function debounce(func, wait) {
+  let timeout
+  return function (...args) {
+    const context = this
+    clearTimeout(timeout)
+    timeout = setTimeout(() => func.apply(context, args), wait)
+  }
+}
+
 const CodeEditorHook = {
   mounted() {
     // TODO: validate dataset
@@ -14,7 +29,8 @@ const CodeEditorHook = {
 
     this.codeEditor.onMount((monaco) => {
       if (this.el.dataset.changeEvent && this.el.dataset.changeEvent !== "") {
-        this.codeEditor.standalone_code_editor.onDidChangeModelContent(() => {
+        // Create the event handler function
+        const handleContentChange = () => {
           if (this.el.dataset.target && this.el.dataset.target !== "") {
             this.pushEventTo(
               this.el.dataset.target,
@@ -28,7 +44,18 @@ const CodeEditorHook = {
               value: this.codeEditor.standalone_code_editor.getValue(),
             })
           }
-        })
+        }
+
+        // Apply debouncing if debounce attribute is present
+        const debounceMs = parseInt(this.el.dataset.debounce)
+        const eventHandler =
+          !isNaN(debounceMs) && debounceMs > 0
+            ? debounce(handleContentChange, debounceMs)
+            : handleContentChange
+
+        this.codeEditor.standalone_code_editor.onDidChangeModelContent(
+          eventHandler
+        )
       }
 
       this.handleEvent(

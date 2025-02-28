@@ -197,6 +197,20 @@ def handle_event("validate", %{"_target" => ["live_monaco_editor", "my_file.html
 end
 ```
 
+### Debouncing editor changes
+
+You can add debouncing to the editor change events to reduce the number of events sent to the server:
+
+```elixir
+<LiveMonacoEditor.code_editor
+  value="<h1>Title</h1>"
+  change="set_editor_value"
+  debounce="300" />
+```
+
+This will wait 300 milliseconds after the user stops typing before sending the event to the server, which can significantly reduce the number of events for fast typists and improve performance.
+
+
 ### Multiple editors
 
 Set an unique `id` and `path` for each one:
