@@ -10,10 +10,13 @@ class CodeEditor {
     this.el = el
     this.path = path
     this.value = value
-    this.opts = opts
+    this.opts = opts || {}
+    // Set default theme if not provided
+    this.theme = this.opts.theme || "tokyonight"
     // https://microsoft.github.io/monaco-editor/docs.html#interfaces/editor.IStandaloneCodeEditor.html
     this.standalone_code_editor = null
     this._onMount = []
+    this._monaco = null // Store Monaco instance
   }
 
   isMounted() {
@@ -44,6 +47,44 @@ class CodeEditor {
     }
   }
 
+  /**
+   * Changes the editor theme
+   * @param {string} theme - The theme name ("default", "tokyonight")
+   * @returns {boolean} - Whether the theme was successfully changed
+   */
+  setTheme(theme) {
+    this.theme = theme
+
+    if (this.isMounted() && this._monaco) {
+      // If editor is already mounted, change the theme immediately
+      try {
+        this._monaco.editor.setTheme(theme)
+        return true
+      } catch (error) {
+        console.error("Failed to set theme:", error)
+        return false
+      }
+    }
+
+    return false
+  }
+
+  /**
+   * Returns the available themes
+   * @returns {string[]} - Array of available theme names
+   */
+  getAvailableThemes() {
+    return ["default", "tokyonight"]
+  }
+
+  /**
+   * Returns the current theme
+   * @returns {string} - Current theme name
+   */
+  getCurrentTheme() {
+    return this.theme
+  }
+
   _mountEditor() {
     this.opts.value = this.value
 
@@ -52,8 +93,16 @@ class CodeEditor {
     })
 
     loader.init().then((monaco) => {
+      this._monaco = monaco // Store Monaco instance
       monaco.editor.defineTheme("default", livebook)
       monaco.editor.defineTheme("tokyonight", tokyonight)
+
+      // Set the theme based on the constructor option
+      monaco.editor.setTheme(this.theme)
+
+      console.log(monaco.editor)
+      console.log(tokyonight)
+      console.log(this.opts)
 
       let modelUri = monaco.Uri.parse(this.path)
       let language = this.opts.language

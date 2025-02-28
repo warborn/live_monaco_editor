@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0 (2025-02-27)
+
+### Enhancements
+
+  * Support to dynamically change between themes
+  * New tokyonight theme
+
 ## 0.2.0 (2024-12-05)
 
 ### Enhancements
