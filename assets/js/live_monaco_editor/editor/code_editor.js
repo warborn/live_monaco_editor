@@ -3,7 +3,7 @@
 // Licensed under Apache 2.0 available at https://www.apache.org/licenses/LICENSE-2.0
 
 import loader from "@monaco-editor/loader"
-import { theme } from "./themes"
+import { livebook, tokyonight } from "./themes"
 
 class CodeEditor {
   constructor(el, path, value, opts) {
@@ -52,7 +52,8 @@ class CodeEditor {
     })
 
     loader.init().then((monaco) => {
-      monaco.editor.defineTheme("default", theme)
+      monaco.editor.defineTheme("default", livebook)
+      monaco.editor.defineTheme("tokyonight", tokyonight)
 
       let modelUri = monaco.Uri.parse(this.path)
       let language = this.opts.language
