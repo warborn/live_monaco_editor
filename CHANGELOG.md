@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.5 (2025-02-28)
+
+### Enhancements
+
+  * Add a "theme" attribute and an event handler to allow updating the theme dynamically
+
 ## 0.3.4 (2025-02-28)
 
 ### Enhancements

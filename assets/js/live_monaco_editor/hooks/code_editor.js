@@ -28,6 +28,11 @@ const CodeEditorHook = {
     )
 
     this.codeEditor.onMount((monaco) => {
+      // Apply theme if specified
+      if (this.el.dataset.theme && this.el.dataset.theme !== "") {
+        this.codeEditor.setTheme(this.el.dataset.theme)
+      }
+
       if (this.el.dataset.changeEvent && this.el.dataset.changeEvent !== "") {
         // Create the event handler function
         const handleContentChange = () => {
@@ -71,6 +76,10 @@ const CodeEditorHook = {
 
       this.handleEvent("lme:set_value:" + this.el.dataset.path, (data) => {
         this.codeEditor.standalone_code_editor.setValue(data.value)
+      })
+
+      this.handleEvent("lme:set_theme:" + this.el.dataset.path, (data) => {
+        this.codeEditor.setTheme(data.theme)
       })
 
       this.el.querySelectorAll("textarea").forEach((textarea) => {

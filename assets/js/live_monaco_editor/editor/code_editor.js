@@ -74,7 +74,7 @@ class CodeEditor {
    * @returns {string[]} - Array of available theme names
    */
   getAvailableThemes() {
-    return ["default", "tokyonight"]
+    return ["default", "tokyonight", "moonlight-ii", "github-light"]
   }
 
   /**

@@ -87,6 +87,10 @@ defmodule LiveMonacoEditor do
     doc:
       "debounce time in milliseconds for editor change events, see https://github.com/BeaconCMS/live_monaco_editor#debouncing-editor-changes for more info"
 
+  attr :theme, :string,
+    default: "",
+    doc: "editor theme to use, available options: 'default', 'tokyonight', 'moonlight-ii', 'github-light'"
+
   attr :opts, :map,
     default: @default_opts,
     doc: """
@@ -125,6 +129,7 @@ defmodule LiveMonacoEditor do
         data-change-event={@change}
         data-target={@target}
         data-debounce={@debounce}
+        data-theme={@theme}
         data-opts={@opts}
         {@rest}
       >
@@ -193,5 +198,28 @@ defmodule LiveMonacoEditor do
   def set_value(socket, value, opts \\ []) when is_binary(value) do
     to = Keyword.get(opts, :to, @default_path)
     push_event(socket, "lme:set_value:#{to}", %{"value" => value})
+  end
+
+  @doc """
+  Change the editor's theme.
+
+  ## Examples
+
+      LiveMonacoEditor.set_theme(socket, "tokyonight", to: "my_file.md")
+
+  ## Options
+
+    * `:to` - the editor's `path` name that will get the theme changed. Defaults to "#{@default_path}".
+
+  Available themes:
+    * "default" - Light theme
+    * "tokyonight" - Dark blue theme
+    * "moonlight-ii" - Dark theme
+    * "github-light" - Light theme
+  """
+  @spec set_theme(Socket.t(), String.t(), keyword()) :: Socket.t()
+  def set_theme(socket, theme, opts \\ []) when is_binary(theme) do
+    to = Keyword.get(opts, :to, @default_path)
+    push_event(socket, "lme:set_theme:#{to}", %{"theme" => theme})
   end
 end

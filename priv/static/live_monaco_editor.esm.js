@@ -1074,7 +1074,7 @@ var CodeEditor = class {
    * @returns {string[]} - Array of available theme names
    */
   getAvailableThemes() {
-    return ["default", "tokyonight"];
+    return ["default", "tokyonight", "moonlight-ii", "github-light"];
   }
   /**
    * Returns the current theme
@@ -1173,6 +1173,9 @@ var CodeEditorHook = {
       opts
     );
     this.codeEditor.onMount((monaco) => {
+      if (this.el.dataset.theme && this.el.dataset.theme !== "") {
+        this.codeEditor.setTheme(this.el.dataset.theme);
+      }
       if (this.el.dataset.changeEvent && this.el.dataset.changeEvent !== "") {
         const handleContentChange = () => {
           if (this.el.dataset.target && this.el.dataset.target !== "") {
@@ -1206,6 +1209,9 @@ var CodeEditorHook = {
       );
       this.handleEvent("lme:set_value:" + this.el.dataset.path, (data) => {
         this.codeEditor.standalone_code_editor.setValue(data.value);
+      });
+      this.handleEvent("lme:set_theme:" + this.el.dataset.path, (data) => {
+        this.codeEditor.setTheme(data.theme);
       });
       this.el.querySelectorAll("textarea").forEach((textarea) => {
         textarea.setAttribute(

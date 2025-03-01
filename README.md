@@ -235,6 +235,34 @@ def handle_event("create-file", _params, socket) do
 end
 ```
 
+### Change editor theme
+
+You can set the editor theme in two ways:
+
+1. Using the `theme` attribute when creating the editor:
+
+```heex
+<LiveMonacoEditor.code_editor
+  path="my_file.html"
+  value="<h1>Title</h1>"
+  theme="tokyonight"
+/>
+```
+
+2. Dynamically changing the theme:
+
+```elixir
+def handle_event("change_theme", %{"theme" => theme}, socket) do
+  {:noreply, LiveMonacoEditor.set_theme(socket, theme)}
+end
+```
+
+Available themes:
+- `"default"` - Light theme
+- `"tokyonight"` - Dark blue theme
+- `"moonlight-ii"` - Dark theme
+- `"github-light"` - Light theme
+
 _More operations will be supported in new releases._
 
 ### Styling
