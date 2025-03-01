@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.4 (2025-02-28)
+
+### Enhancements
+
+  * Add github_light theme
+
 ## 0.3.3 (2025-02-27)
 
 ### Enhancements

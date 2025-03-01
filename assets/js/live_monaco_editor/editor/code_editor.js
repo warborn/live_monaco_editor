@@ -3,7 +3,7 @@
 // Licensed under Apache 2.0 available at https://www.apache.org/licenses/LICENSE-2.0
 
 import loader from "@monaco-editor/loader"
-import { livebook, tokyonight, moonlight_ii } from "./themes"
+import { livebook, tokyonight, moonlight_ii, githublight } from "./themes"
 
 class CodeEditor {
   constructor(el, path, value, opts) {
@@ -97,6 +97,7 @@ class CodeEditor {
       monaco.editor.defineTheme("default", livebook)
       monaco.editor.defineTheme("tokyonight", tokyonight)
       monaco.editor.defineTheme("moonlight-ii", moonlight_ii)
+      monaco.editor.defineTheme("github-light", githublight)
       // Set the theme based on the constructor option
       monaco.editor.setTheme(this.theme)
 

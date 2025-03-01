@@ -968,6 +968,81 @@ var moonlight_ii_default = {
   ]
 };
 
+// js/live_monaco_editor/editor/themes/github-light.js
+var github_light_default = {
+  base: "vs",
+  inherit: true,
+  rules: [
+    { token: "attribute", foreground: "24292f" },
+    { token: "keyword", foreground: "cf222e" },
+    { token: "keyword.directive", foreground: "cf222e" },
+    { token: "namespace", foreground: "953800" },
+    { token: "punctuation", foreground: "24292f" },
+    { token: "punctuation.delimiter", foreground: "24292f" },
+    { token: "operator", foreground: "0a3069" },
+    { token: "special", foreground: "0a3069" },
+    { token: "variable.other.member", foreground: "0a3069" },
+    { token: "variable", foreground: "24292f" },
+    { token: "variable.parameter", foreground: "953800" },
+    { token: "variable.builtin", foreground: "cf222e" },
+    { token: "type", foreground: "953800" },
+    { token: "type.builtin", foreground: "0550ae" },
+    { token: "constructor", foreground: "8250df" },
+    { token: "function", foreground: "8250df" },
+    { token: "function.macro", foreground: "8250df" },
+    { token: "tag", foreground: "116329" },
+    { token: "comment", foreground: "57606a" },
+    { token: "constant", foreground: "0550ae" },
+    { token: "constant.builtin", foreground: "0550ae" },
+    { token: "string", foreground: "0a3069" },
+    { token: "constant.numeric", foreground: "0550ae" },
+    { token: "constant.character.escape", foreground: "0550ae" },
+    { token: "label", foreground: "cf222e" },
+    { token: "markup.heading", foreground: "0550ae" },
+    { token: "markup.bold", fontStyle: "bold" },
+    { token: "markup.italic", fontStyle: "italic" },
+    { token: "markup.strikethrough", fontStyle: "strikethrough" },
+    { token: "markup.link.url", fontStyle: "underline" },
+    { token: "markup.link.text", foreground: "0a3069", fontStyle: "underline" },
+    { token: "markup.raw", foreground: "0550ae" },
+    { token: "diff.plus", foreground: "1a7f37" },
+    { token: "diff.minus", foreground: "cf222e" },
+    { token: "diff.delta", foreground: "9a6700" }
+  ],
+  colors: {
+    // Editor UI colors
+    "editor.background": "#ffffff",
+    "editor.foreground": "#24292f",
+    "editorLineNumber.foreground": "#6e7781",
+    "editorLineNumber.activeForeground": "#24292f",
+    "editor.selectionBackground": "#ddf4ff",
+    "editor.selectionHighlightBackground": "#b6e3ff",
+    "editor.inactiveSelectionBackground": "#ddf4ff",
+    "editor.findMatchBackground": "#ddf4ff",
+    "editor.findMatchHighlightBackground": "#ddf4ff",
+    "editorCursor.foreground": "#24292f",
+    "editor.lineHighlightBackground": "#f6f8fa",
+    "editorWhitespace.foreground": "#6e7781",
+    "editorIndentGuide.background": "#d0d7de",
+    "editorIndentGuide.activeBackground": "#afb8c1",
+    // UI Elements
+    "dropdown.background": "#f6f8fa",
+    "dropdown.border": "#d0d7de",
+    "list.activeSelectionBackground": "#f6f8fa",
+    "list.hoverBackground": "#f6f8fa",
+    "sideBar.background": "#f6f8fa",
+    "sideBar.border": "#d0d7de",
+    "titleBar.activeBackground": "#f6f8fa",
+    "statusBar.background": "#f6f8fa",
+    "statusBar.border": "#d0d7de",
+    // Diagnostic colors
+    "editorError.foreground": "#cf222e",
+    "editorWarning.foreground": "#9a6700",
+    "editorInfo.foreground": "#0969da",
+    "editorHint.foreground": "#1a7f37"
+  }
+};
+
 // js/live_monaco_editor/editor/code_editor.js
 var CodeEditor = class {
   constructor(el, path, value, opts) {
@@ -1043,6 +1118,7 @@ var CodeEditor = class {
       monaco.editor.defineTheme("default", livebook_default);
       monaco.editor.defineTheme("tokyonight", tokyonight_default);
       monaco.editor.defineTheme("moonlight-ii", moonlight_ii_default);
+      monaco.editor.defineTheme("github-light", github_light_default);
       monaco.editor.setTheme(this.theme);
       let modelUri = monaco.Uri.parse(this.path);
       let language = this.opts.language;
