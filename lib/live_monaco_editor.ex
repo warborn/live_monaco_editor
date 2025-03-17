@@ -222,4 +222,23 @@ defmodule LiveMonacoEditor do
     to = Keyword.get(opts, :to, @default_path)
     push_event(socket, "lme:set_theme:#{to}", %{"theme" => theme})
   end
+
+  @doc """
+  Update the editor's options.
+
+  ## Examples
+
+      LiveMonacoEditor.update_options(socket, %{"fontSize" => 16}, to: "my_file.md")
+
+  ## Options
+
+    * `:to` - the editor's `path` name that will get the options updated. Defaults to "#{@default_path}".
+
+  See https://microsoft.github.io/monaco-editor/docs.html#interfaces/editor.IStandaloneCodeEditor.html#updateOptions for available options.
+  """
+  @spec update_options(Socket.t(), map(), keyword()) :: Socket.t()
+  def update_options(socket, options, opts \\ []) when is_map(options) do
+    to = Keyword.get(opts, :to, @default_path)
+    push_event(socket, "lme:update_options:#{to}", %{"options" => options})
+  end
 end

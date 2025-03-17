@@ -276,6 +276,52 @@ The component does not depend on any CSS framework but its parent container has 
 />
 ```
 
+### Update editor options
+
+You can dynamically update any of the editor's options after it has been created:
+
+```elixir
+def handle_event("increase_font", _params, socket) do
+  {:noreply, LiveMonacoEditor.update_options(socket, %{"fontSize" => 16})}
+end
+
+# Or for a specific editor when using multiple editors
+def handle_event("increase_font", _params, socket) do
+  {:noreply, LiveMonacoEditor.update_options(socket, %{"fontSize" => 16}, to: "my_file.html")}
+end
+```
+
+This allows you to change any of the [Monaco Editor options](https://microsoft.github.io/monaco-editor/docs.html#interfaces/editor.IStandaloneCodeEditor.html#updateOptions) dynamically, such as:
+- Font size
+- Word wrap settings
+- Line numbers visibility
+- Minimap settings
+- And many more
+
+For example, to create a font size control:
+
+```heex
+<div>
+  <button phx-click="decrease_font">-</button>
+  <button phx-click="increase_font">+</button>
+</div>
+
+<LiveMonacoEditor.code_editor
+  path="my_file.html"
+  value="<h1>Title</h1>"
+/>
+```
+
+```elixir
+def handle_event("decrease_font", _params, socket) do
+  {:noreply, LiveMonacoEditor.update_options(socket, %{"fontSize" => 12})}
+end
+
+def handle_event("increase_font", _params, socket) do
+  {:noreply, LiveMonacoEditor.update_options(socket, %{"fontSize" => 16})}
+end
+```
+
 ## Status
 
 Early-stage, you can expect incomplete features and breaking changes.

@@ -1213,6 +1213,9 @@ var CodeEditorHook = {
       this.handleEvent("lme:set_theme:" + this.el.dataset.path, (data) => {
         this.codeEditor.setTheme(data.theme);
       });
+      this.handleEvent("lme:update_options:" + this.el.dataset.path, (data) => {
+        this.codeEditor.standalone_code_editor.updateOptions(data.options);
+      });
       this.el.querySelectorAll("textarea").forEach((textarea) => {
         textarea.setAttribute(
           "name",

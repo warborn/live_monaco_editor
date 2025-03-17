@@ -1,6 +1,10 @@
 # Changelog
 
-## 0.3.5 (2025-02-28)
+## 0.3.6 (2025-03-17)
+
+### Enhancements
+
+  * Add support to update theme default options dynamically
 
 ### Enhancements
 
