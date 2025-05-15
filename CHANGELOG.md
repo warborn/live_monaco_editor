@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.7 (2025-05-15)
+
+### Enhancements
+
+- Add auto_height attribute
+
 ## 0.3.6 (2025-03-17)
 
 ### Enhancements

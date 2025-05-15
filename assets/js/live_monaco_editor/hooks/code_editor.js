@@ -20,6 +20,14 @@ const CodeEditorHook = {
     // TODO: validate dataset
     const opts = JSON.parse(this.el.dataset.opts)
 
+    // Handle fixed height mode - disable auto height adjustment if auto_height="false"
+    if (
+      this.el.dataset.autoHeight === "false" ||
+      this.el.dataset.autoHeight === false
+    ) {
+      opts.autoHeight = false
+    }
+
     this.codeEditor = new CodeEditor(
       this.el,
       this.el.dataset.path,

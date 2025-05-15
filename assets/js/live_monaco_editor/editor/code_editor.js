@@ -13,6 +13,8 @@ class CodeEditor {
     this.opts = opts || {}
     // Set default theme if not provided
     this.theme = this.opts.theme || "tokyonight"
+    // Auto-adjust height by default (backward compatibility)
+    this.autoHeight = this.opts.autoHeight !== false
     // https://microsoft.github.io/monaco-editor/docs.html#interfaces/editor.IStandaloneCodeEditor.html
     this.standalone_code_editor = null
     this._onMount = []
@@ -142,10 +144,13 @@ class CodeEditor {
 
       resizeObserver.observe(this.el)
 
-      this.standalone_code_editor.onDidContentSizeChange(() => {
-        const contentHeight = this.standalone_code_editor.getContentHeight()
-        this.el.style.height = `${contentHeight}px`
-      })
+      // Only adjust height automatically if autoHeight is true
+      if (this.autoHeight) {
+        this.standalone_code_editor.onDidContentSizeChange(() => {
+          const contentHeight = this.standalone_code_editor.getContentHeight()
+          this.el.style.height = `${contentHeight}px`
+        })
+      }
     })
   }
 

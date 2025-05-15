@@ -322,6 +322,25 @@ def handle_event("increase_font", _params, socket) do
 end
 ```
 
+### Fixed Height and Scrolling
+
+By default, the editor automatically adjusts its height to fit the content, which can cause it to overflow its container when working with large files.
+
+For a fixed-height editor with scrollbars, set `auto_height` to `false`:
+
+```heex
+<LiveMonacoEditor.code_editor
+  style="height: 500px; width: 100%;"
+  auto_height={false}
+  value={@code}
+/>
+```
+
+This is particularly useful for:
+- Side-by-side layouts where you want the editor to take a fixed height
+- When embedding the editor in applications with limited screen space
+- Working with larger files where scrolling is preferable to a tall editor
+
 ## Status
 
 Early-stage, you can expect incomplete features and breaking changes.

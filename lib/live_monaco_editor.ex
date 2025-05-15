@@ -91,6 +91,11 @@ defmodule LiveMonacoEditor do
     default: "",
     doc: "editor theme to use, available options: 'default', 'tokyonight', 'moonlight-ii', 'github-light'"
 
+  attr :auto_height, :boolean,
+    default: true,
+    doc:
+      "whether the editor should automatically adjust its height to fit content, set to false for fixed height with scrollbars"
+
   attr :opts, :map,
     default: @default_opts,
     doc: """
@@ -130,6 +135,7 @@ defmodule LiveMonacoEditor do
         data-target={@target}
         data-debounce={@debounce}
         data-theme={@theme}
+        data-auto-height={to_string(@auto_height)}
         data-opts={@opts}
         {@rest}
       >

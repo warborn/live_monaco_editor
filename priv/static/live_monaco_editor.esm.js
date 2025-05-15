@@ -1026,6 +1026,7 @@ var CodeEditor = class {
     this.value = value;
     this.opts = opts || {};
     this.theme = this.opts.theme || "tokyonight";
+    this.autoHeight = this.opts.autoHeight !== false;
     this.standalone_code_editor = null;
     this._onMount = [];
     this._monaco = null;
@@ -1128,10 +1129,12 @@ var CodeEditor = class {
         });
       });
       resizeObserver.observe(this.el);
-      this.standalone_code_editor.onDidContentSizeChange(() => {
-        const contentHeight = this.standalone_code_editor.getContentHeight();
-        this.el.style.height = `${contentHeight}px`;
-      });
+      if (this.autoHeight) {
+        this.standalone_code_editor.onDidContentSizeChange(() => {
+          const contentHeight = this.standalone_code_editor.getContentHeight();
+          this.el.style.height = `${contentHeight}px`;
+        });
+      }
     });
   }
   _setScreenDependantEditorOptions() {
@@ -1166,6 +1169,9 @@ function debounce(func, wait) {
 var CodeEditorHook = {
   mounted() {
     const opts = JSON.parse(this.el.dataset.opts);
+    if (this.el.dataset.autoHeight === "false" || this.el.dataset.autoHeight === false) {
+      opts.autoHeight = false;
+    }
     this.codeEditor = new code_editor_default(
       this.el,
       this.el.dataset.path,
